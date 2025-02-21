@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,13 +12,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(UrlGenerator $url)
     {
         require_once app_path().'/Helpers/helpers.php';
         require_once app_path().'/Helpers/date_time.php';
 
         if (env("APP_ENV") == "production") {
-            $url->forceSchema("https");
+            $url->forceScheme('https');
         }
 
         \Validator::extend('not_exists', function ($attribute, $value, $parameters) {
